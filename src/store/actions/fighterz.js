@@ -7,8 +7,11 @@ const initFighterz = (fighterz) => {
 
 export const addFighterz = (fighterzPersonnage) => {
     return dispatch => {
-        // axios...
-        dispatch({type: actionTypes.ADD_FIGHTERZ, personnage: fighterzPersonnage});
+        axios.post( 'https://react-dbfz.firebaseio.com/fighterz.json', fighterzPersonnage)
+        .then(response => {
+            fighterzPersonnage['id'] = response.data.name;
+            dispatch({type: actionTypes.ADD_FIGHTERZ, personnage: fighterzPersonnage});
+        }).catch(err => {console.log("err", err)});
 };
 };
 

@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.avatar-big {
+  font-size: .875rem;
+  width: 80px !important;
+  height: 80px !important;
+}
+
+.avatar-giga {
+  font-size: .875rem;
+  width: 250px !important;
+  height: 250px !important;
+}

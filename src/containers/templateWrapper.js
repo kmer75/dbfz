@@ -10,7 +10,6 @@ import dbfzLogo from '../assets/img/brand/dragon-ball-fighter-z-nintendo-switch.
 const TemplateWraper = props => {
     return (
         <div>
-            <div>voici mon wrapper</div>
 
             <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
                 <div className="container-fluid">
