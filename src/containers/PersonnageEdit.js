@@ -3,14 +3,26 @@ import { connect } from 'react-redux';
 import * as actions from '../store/actions/fighterz.js';
 import { Link } from 'react-router-dom';
 
-class PersonnageAdd extends Component {
+class PersonnageEdit extends Component {
 
     state = {
-        personnage: {nom: "", race: "", niveau: "", puissance: '', 
-        imageUrl1: 'https://www.elsetge.cat/myimg/f/124-1246554_more-gohan-wallpapers-ssj2-gohan-kamehameha-gif.jpg', 
-        imageUrl2: '',imageUrl3: '',imageUrl4: ''}
-
+        personnage: null
     }
+
+    componentDidMount() {
+      debugger;
+      if(this.props.fighterz.fighterz && this.props.fighterz.fighterz.length > 0 && this.props.match.params) {
+        const personnage = this.props.fighterz.fighterz.find(x => x.id == this.props.match.params.id) //si null ba c'est null.
+        this.setState({personnage});
+        return;
+      }
+      if (this.props.match.params) {
+          this.props.onGetPersonnage(this.props.match.params.id).then((response)=>{
+            console.log(response)
+          }).catch((err)=> console.log(err));
+        }
+      }
+    
 
     onChangeFieldHandler = (event) => {
         const {value, name} = event.target;
@@ -34,9 +46,10 @@ class PersonnageAdd extends Component {
                   <a href="#!" className="btn btn-sm btn-primary">Fight</a>
                 </div>
               </div>
-              <Link to="/"><button type="button" className="btn btn-outline-secondary" ><i className="ni ni-bullet-list-67 text-dark"></i> Retour à la liste des fighterZ</button></Link>
+              <Link to="/"><button type="button" className="btn btn-outline-secondary" ><i className="ni ni-bullet-list-67 text-dark"></i>  Retour à la liste des fighterZ</button></Link>
             </div>
             <div className="card-body">
+              {this.state.personnage ?
               <form>
                 <h6 className="heading-small text-muted mb-4">FighterZ information</h6>
                 <div className="pl-lg-4">
@@ -82,22 +95,30 @@ class PersonnageAdd extends Component {
                   </div>
                 </div>
                 <hr className="my-4"/>
-                    <img src={this.state.personnage.imageUrl1} className="avatar avatar-giga"/>
+                    <img src={this.state.personnage.imageUrl1} className="avatar avatar-giga" onerror="javascript:this.src='images/default.jpg'"/>
                 <hr className="my-4"/>
 
-                          <button onClick={()=> this.props.onAddFighterz(this.state.personnage)} type="button" className="btn btn-outline-secondary">Créer FighterZ</button>
+                          <button onClick={()=> this.props.onEditFighterz(this.state.personnage)} type="button" className="btn btn-outline-secondary">Créer FighterZ</button>
               </form>
+              : null}
             </div>
           </div>
         </div>);
     }
 }
 
+const mapStateToProps = state => {
+  return {
+      fighterz: state.fighterz.fighterz,
+      editedPersonnage: state.fighterz.editedPersonnage,
+  };
+}
   
 const mapDispatchToProps = dispatch => {
 return {
-    onAddFighterz: (personnage) => dispatch(actions.addFighterz(personnage))
+    onEditFighterz: (personnage) => dispatch(actions.editFighterz(personnage)),
+    onGetPersonnage: (id) => dispatch(actions.getPersonnageById(id))
 }
 };
 
-export default connect(null, mapDispatchToProps)(PersonnageAdd);
+export default connect(mapStateToProps, mapDispatchToProps)(PersonnageEdit);

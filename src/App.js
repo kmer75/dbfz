@@ -4,6 +4,7 @@ import './App.css';
 import TemplateWrapper from './containers/templateWrapper.js'
 import PersonnageList from './containers/PersonnageList.js'
 import PersonnageAdd from './containers/PersonnageAdd.js'
+import PersonnageEdit from './containers/PersonnageEdit.js'
 
 class App extends Component {
   render () {
@@ -12,7 +13,7 @@ class App extends Component {
           <TemplateWrapper>
             <Switch>
               <Route path="/add" component={PersonnageAdd} />
-              <Route path="/edit" component={PersonnageList} />
+              <Route path="/edit/:id" component={PersonnageEdit} />
               <Route path="/" exact component={PersonnageList} />
             </Switch>
           </TemplateWrapper>

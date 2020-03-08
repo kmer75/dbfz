@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const PersonnageItem = props => {
     const {personnage} = props
@@ -49,8 +50,8 @@ const PersonnageItem = props => {
                             </div>
                           </td>
                           <td className="text-right">
-                          <button type="button" className="btn btn-outline-primary">Editer</button>
-                          <button type="button" className="btn btn-outline-danger">Supprimer</button>
+                          <Link to={"/edit/"+personnage.id}><button type="button" className="btn-icon-clipboard " style={{'width': 'inherit', 'marginRight': '2px'}}><i className="ni ni-controller text-primary"></i></button></Link>
+                          <Link to={"/edit/"+personnage.id}><button type="button" className="btn-icon-clipboard" style={{'width': 'inherit'}}><i className="ni ni-fat-remove text-danger"></i></button></Link>
                           </td>
                         </tr>
     )
