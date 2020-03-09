@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import {fighterzRef} from '../../components/Firebase/firebase.js';
 
 const initFighterz = (fighterz) => {
     return {type: actionTypes.INIT_FIGHTERZ, fighterz};
@@ -11,11 +12,12 @@ const getPersonnage = (personnage) => {
 
 export const addFighterz = (fighterzPersonnage) => {
     return dispatch => {
-        axios.post( 'https://react-dbfz.firebaseio.com/fighterz.json', fighterzPersonnage)
-        .then(response => {
-            fighterzPersonnage['id'] = response.data.name;
+        fighterzRef().push(fighterzPersonnage)//.set()
+        .then(snapshot => {
+            const key = snapshot.key;
+            fighterzPersonnage['id'] = key;
             dispatch({type: actionTypes.ADD_FIGHTERZ, personnage: fighterzPersonnage});
-            return response;
+            return fighterzPersonnage;
         }).catch(err => {console.log("err", err)});
 };
 };
@@ -33,33 +35,28 @@ export const editFighterz = (fighterzPersonnage) => {
 
 export const initFighterzList = () => {
     return dispatch => {
-        return axios.get( 'https://react-dbfz.firebaseio.com/fighterz.json' )
-            .then( response => {
-                const keys = Object.keys(response.data);
+        fighterzRef().on("value", snapshot => {
+            const response = snapshot.val();
+            const keys = Object.keys(response);
                 let fighterz = [];
                 keys.forEach(k => {
-                    let currentFighterz = response.data[k];
+                    let currentFighterz = response[k];
                     currentFighterz["id"] = k;
                     fighterz.push(currentFighterz)
                 });
                dispatch(initFighterz(fighterz));
-               return response;
-            } )
-            .catch( error => {
-                console.error("get init fighterz list", error);
-            } );
+               return fighterz;
+        });
     };
 };
 
 export const getPersonnageById = (id) => {
     return dispatch => {
-        return axios.get( 'https://react-dbfz.firebaseio.com/fighterz.json/'+id )
-            .then( response => {
-                debugger;
-               dispatch(getPersonnage(response.data));
-            } )
-            .catch( error => {
-                console.error("get fighterz "+id, error);
-            } );
+        return fighterzRef(id).on("value", snapshot => {
+            const currentFighterz = snapshot.val();
+            const key = snapshot.key;
+            currentFighterz["id"] = key;
+            dispatch(getPersonnage(currentFighterz));
+        })
     };
 }

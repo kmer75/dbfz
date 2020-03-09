@@ -11,15 +11,16 @@ class PersonnageEdit extends Component {
 
     componentDidMount() {
       debugger;
-      if(this.props.fighterz.fighterz && this.props.fighterz.fighterz.length > 0 && this.props.match.params) {
-        const personnage = this.props.fighterz.fighterz.find(x => x.id == this.props.match.params.id) //si null ba c'est null.
+      if(this.props.fighterz && this.props.fighterz.length > 0 && this.props.match.params) {
+        const personnage = this.props.fighterz.find(x => x.id == this.props.match.params.id) //si null ba c'est null.
         this.setState({personnage});
         return;
       }
       if (this.props.match.params) {
-          this.props.onGetPersonnage(this.props.match.params.id).then((response)=>{
-            console.log(response)
-          }).catch((err)=> console.log(err));
+          this.props.onGetPersonnage(this.props.match.params.id)
+          // .then((response)=>{
+          //   console.log(response)
+          // }).catch((err)=> console.log(err));
         }
       }
     
