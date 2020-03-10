@@ -8,6 +8,7 @@ import '../assets/css/argon-dashboard.css?v=1.1.1';
 import dbfzLogo from '../assets/img/brand/dragon-ball-fighter-z-nintendo-switch.jpg';
 import { connect } from 'react-redux';
 import Modals from '../components/Modals.js'
+import { withRouter } from "react-router";
 import * as actions from '../store/actions/fighterz.js';
 
 
@@ -55,23 +56,13 @@ const TemplateWraper = props => {
                         {/* Navigation */}
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link active" href="~/Client/Activite">
-                                    <i className="ni ni-calendar-grid-58 text-red"></i> Mon Activité
+                                <a className="nav-link active" href="#" onClick={()=> props.history.push('/')}>
+                                    <i className="ni ni-bullet-list-67 text-red"></i> Liste des FighterZ
                         </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link " href="~/Client/Ajouter">
-                                    <i className="ni ni-watch-time text-green"></i> Nouvelle course
-                        </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link " href="~/Client/profil">
-                                    <i className="ni ni-single-02 text-yellow"></i> Mon Profil
-                        </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="~/Auth/Logout">
-                                    <i className="ni ni-circle-08 text-pink"></i> Se Déconnecter
+                                <a className="nav-link " href="#"  onClick={()=> props.history.push('/add')}>
+                                    <i className="ni ni-fat-add text-green"></i> Ajouter un FighterZ
                         </a>
                             </li>
                         </ul>
@@ -145,4 +136,4 @@ const TemplateWraper = props => {
                 }
           }
         
-export default connect(mapStatetoProps, mapDispatchToProps)(TemplateWraper)
+export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(TemplateWraper))

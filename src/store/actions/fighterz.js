@@ -2,8 +2,8 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import {fighterzRef} from '../../components/Firebase/firebase.js';
 
-const setModalConfigHelper = (isOpen, title = '', text = '') => {
-    const config = {isOpen, title, text };
+const setModalConfigHelper = (isOpen, title = '', text = '', isError = false, isCallback = false, callback = null) => {
+    const config = {isOpen, title, text, isError, isCallback, callback };
     return config;
 }
 
@@ -23,16 +23,23 @@ const getPersonnage = (personnage) => {
     return {type: actionTypes.GET_FIGHTERZ_BY_ID, personnage}
 }
 
-export const addFighterz = (fighterzPersonnage) => 
+export const addFighterz = (fighterzPersonnage, callBack) => 
     (dispatch, getState) => {
         dispatch(setLoading(true))
-        return fighterzRef().push(fighterzPersonnage)//.set()
+        return fighterzRef().push(fighterzPersonnage)
         .then(snapshot => {
             const key = snapshot.key;
             fighterzPersonnage['id'] = key;
+            const config = setModalConfigHelper(true, "Enregistrement du Fighterz", "L'enregistrement s'est effectué avec succès", false, true, callBack);
+            dispatch(setModalConfig(config));
             dispatch({type: actionTypes.ADD_FIGHTERZ, personnage: fighterzPersonnage});
             return fighterzPersonnage;
-        }).catch(err => {console.log("err", err)})
+        })
+        .catch((err) => {
+            const config = setModalConfigHelper(true, `Enregistrement du Fighterz a échoué`, ` Voici la raison -> ${err.message}`, true);
+            dispatch(setModalConfig(config));
+            console.err(err);
+        })
         .finally(()=> dispatch(setLoading(false)));
 };
 
@@ -46,7 +53,12 @@ export const editFighterz = (fighterzPersonnage) =>
             dispatch(setModalConfig(config));
             dispatch({type: actionTypes.EDIT_FIGHTERZ, personnage: fighterzPersonnage});
             return response;
-        }).catch(err => {console.log("err", err)})
+        })        
+        .catch((err) => {
+            const config = setModalConfigHelper(true, `Enregistrement du Fighterz a échoué`, ` Voici la raison -> ${err.message}`, true);
+            dispatch(setModalConfig(config));
+            console.err(err);
+        })
         .finally(()=> dispatch(setLoading(false)));
     };
 
@@ -68,6 +80,11 @@ export const initFighterzList = () =>
                dispatch(initFighterz(fighterz));
                return fighterz;
         })
+        .catch((err) => {
+            const config = setModalConfigHelper(true, `Récupération des Fighterz a échoué -> ${err.message}`, "L'enregistrement a échoué. ", true);
+            dispatch(setModalConfig(config));
+            console.err(err);
+        })
         .finally(()=> dispatch(setLoading(false)));
     };
 
@@ -83,6 +100,11 @@ export const getPersonnageById = (id) =>
             currentFighterz["id"] = key;
             dispatch(getPersonnage(currentFighterz));
             return currentFighterz;
+        })
+        .catch((err) => {
+            const config = setModalConfigHelper(true, `Récupération du Fighterz a échoué`, `Voici l'erreur -> ${err.message}`, true);
+            dispatch(setModalConfig(config));
+            console.err(err);
         })
         .finally(()=> dispatch(setLoading(false)));
     }

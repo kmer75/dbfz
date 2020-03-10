@@ -10,9 +10,13 @@ class Modals extends React.Component {
     exampleModal: false
   };
   toggleModal = () => {
+    if(this.props.modalConfig.isCallback)
+      this.props.modalConfig.callback();
+      
     this.props.closeModal();
   };
   render() {
+    const classError = this.props.modalConfig.isError ? 'text-danger' : '';
     return (
       <>
         {/* Modal */}
@@ -36,7 +40,7 @@ class Modals extends React.Component {
               <span aria-hidden={true}>×</span>
             </button>
           </div>
-          <div className={this.props.modalConfig.textColor + " modal-body"}>{this.props.modalConfig.text}</div>
+          <div className={classError + " modal-body"}>{this.props.modalConfig.text}</div>
           <div className="modal-footer">
             <Button
               color="primary"

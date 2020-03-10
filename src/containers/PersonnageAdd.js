@@ -7,9 +7,7 @@ class PersonnageAdd extends Component {
 
     state = {
         personnage: {nom: "", race: "", niveau: "", puissance: '', 
-        imageUrl1: 'https://www.elsetge.cat/myimg/f/124-1246554_more-gohan-wallpapers-ssj2-gohan-kamehameha-gif.jpg', 
-        imageUrl2: '',imageUrl3: '',imageUrl4: ''}
-
+        imageUrl1: '', imageUrl2: '',imageUrl3: '',imageUrl4: ''}
     }
 
     onChangeFieldHandler = (event) => {
@@ -20,6 +18,11 @@ class PersonnageAdd extends Component {
             return {personnage: updatedObject};
     });
     }
+
+    naviteToList= () => {
+      debugger;
+      this.props.history.push('/');
+    } 
 
     render() {
         return (
@@ -90,7 +93,7 @@ class PersonnageAdd extends Component {
                       <div className="col-lg-6">
                         <div className="form-group">
                           <label className="form-control-label" htmlFor="niveau">Image secondaire</label>
-                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl2" id="imageUrl2" className="form-control" placeholder="Niveau"  value={this.state.personnage.imageUrl2}  />
+                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl2" id="imageUrl2" className="form-control" value={this.state.personnage.imageUrl2}  />
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -106,7 +109,7 @@ class PersonnageAdd extends Component {
                       <div className="col-lg-6">
                         <div className="form-group">
                           <label className="form-control-label" htmlFor="niveau">Troisième image</label>
-                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl2" id="imageUrl3" className="form-control" placeholder="Niveau"  value={this.state.personnage.imageUrl3}  />
+                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl2" id="imageUrl3" className="form-control" value={this.state.personnage.imageUrl3}  />
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -122,7 +125,7 @@ class PersonnageAdd extends Component {
                       <div className="col-lg-6">
                         <div className="form-group">
                           <label className="form-control-label" htmlFor="niveau">Quatrième image</label>
-                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl4" id="imageUrl4" className="form-control" placeholder="Niveau"  value={this.state.personnage.imageUrl4}  />
+                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl4" id="imageUrl4" className="form-control" value={this.state.personnage.imageUrl4}  />
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -136,7 +139,7 @@ class PersonnageAdd extends Component {
                     
                 <hr className="my-4"/>
 
-                          <button onClick={()=> this.props.onAddFighterz(this.state.personnage)} type="button" className="btn btn-outline-secondary">Créer FighterZ</button>
+                          <button onClick={()=> this.props.onAddFighterz(this.state.personnage, this.naviteToList)} type="button" className="btn btn-outline-secondary">Créer FighterZ</button>
               </form>
             </div>
           </div>
@@ -147,7 +150,7 @@ class PersonnageAdd extends Component {
   
 const mapDispatchToProps = dispatch => {
 return {
-    onAddFighterz: (personnage) => dispatch(actions.addFighterz(personnage))
+    onAddFighterz: (personnage, callback) => dispatch(actions.addFighterz(personnage, callback))
 }
 };
 

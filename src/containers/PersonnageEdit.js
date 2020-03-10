@@ -108,7 +108,7 @@ class PersonnageEdit extends Component {
                       <div className="col-lg-6">
                         <div className="form-group">
                           <label className="form-control-label" htmlFor="niveau">Image secondaire</label>
-                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl2" id="imageUrl2" className="form-control" placeholder="Niveau"  value={this.state.personnage.imageUrl2}  />
+                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl2" id="imageUrl2" className="form-control" value={this.state.personnage.imageUrl2}  />
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -124,7 +124,7 @@ class PersonnageEdit extends Component {
                       <div className="col-lg-6">
                         <div className="form-group">
                           <label className="form-control-label" htmlFor="niveau">Troisième image</label>
-                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl2" id="imageUrl3" className="form-control" placeholder="Niveau"  value={this.state.personnage.imageUrl3}  />
+                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl2" id="imageUrl3" className="form-control" value={this.state.personnage.imageUrl3}  />
                         </div>
                       </div>
                       <div className="col-lg-6">
@@ -140,7 +140,7 @@ class PersonnageEdit extends Component {
                       <div className="col-lg-6">
                         <div className="form-group">
                           <label className="form-control-label" htmlFor="niveau">Quatrième image</label>
-                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl4" id="imageUrl4" className="form-control" placeholder="Niveau"  value={this.state.personnage.imageUrl4}  />
+                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl4" id="imageUrl4" className="form-control" value={this.state.personnage.imageUrl4}  />
                         </div>
                       </div>
                       <div className="col-lg-6">
