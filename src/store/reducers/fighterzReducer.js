@@ -4,7 +4,12 @@ import { updateObject } from '../utility';
 const initialState = {
    fighterz: [],
    editedPersonnage: {},
-   isLoading: false
+   isLoading: false,
+   modalConfig: {
+       isOpen: false,
+       text: 'texte bidon',
+       title: 'titre bidon'
+   }
 }
 
 const addPersonnage = (state, action) => {
@@ -39,7 +44,14 @@ const setLoading = (state, action) => {
     return updatedState;
 }
 
+const setModalConfig = (state, action) => {
+    let updatedState = {...state};
+    updatedState.modalConfig = action.config;
+    return updatedState;
+}
+
 const reducer = ( state = initialState, action ) => {
+    
     switch ( action.type ) {
         case actionTypes.ADD_FIGHTERZ: return addPersonnage( state, action );
         case actionTypes.EDIT_FIGHTERZ: return editPersonnage( state, action );
@@ -48,6 +60,8 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.INIT_FIGHTERZ: return initFighterz(state, action);    
         // case actionTypes.FETCH_FIGHTERZ_FAILED: return fetchIngredientsFailed(state, action);
         case actionTypes.SET_LOADING: return setLoading(state, action);
+        case actionTypes.SET_MODAL_CONFIG: return setModalConfig(state, action);
+        
         
         default: return state;
     }

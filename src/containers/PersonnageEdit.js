@@ -35,7 +35,7 @@ class PersonnageEdit extends Component {
 
     render() {
         return (
-          <div className="col-xl-8 order-xl-1 mt-7">
+          <div className="col-xl-12 order-xl-1 mt-7">
           <div className="card">
             <div className="card-header">
               <div className="row align-items-center">
@@ -50,7 +50,7 @@ class PersonnageEdit extends Component {
               <Link to="/"><button type="button" className="btn btn-outline-secondary float-left" ><i className="ni ni-bullet-list-67 text-dark"></i>  Retour à la liste des fighterZ</button></Link>
             </div>
             <div className="card-body">
-              {this.state.personnage ?
+              {this.state.personnage &&
               <form>
                 <h6 className="heading-small text-muted mb-4">FighterZ information</h6>
                 <div className="pl-lg-4">
@@ -65,11 +65,11 @@ class PersonnageEdit extends Component {
                       <div className="form-group">
                         <label className="form-control-label" htmlFor="race">Race</label>
                         {/* <input  onChange={this.onChangeFieldHandler}  type="text" name="race" id="race" className="form-control" placeholder="Race"  value={this.state.personnage.race}/> */}
-                        <select onChange={this.onChangeFieldHandler} name="race" id="race" className="form-control" placeholder="choisir sa race" value={this.state.personnage.race}>
-        <option>Saiyen</option>
-        <option>Terrien</option>
-        <option>Namek</option>
-    </select>
+                          <select onChange={this.onChangeFieldHandler} name="race" id="race" className="form-control" placeholder="choisir sa race" value={this.state.personnage.race}>
+                            <option>Saiyen</option>
+                            <option>Terrien</option>
+                            <option>Namek</option>
+                          </select>
                       </div>
                     </div>
                   </div>
@@ -101,7 +101,7 @@ class PersonnageEdit extends Component {
                   </div>
                 </div>
                 <hr className="my-4"/>
-                    <img src={this.state.personnage.imageUrl1} className="avatar avatar-giga"/>
+                    <img alt="" src={this.state.personnage.imageUrl1} className="avatar avatar-giga"/>
                 <hr className="my-4"/>
 
                     <div className="row">
@@ -154,10 +154,7 @@ class PersonnageEdit extends Component {
                 <hr className="my-4"/>
 
                           <button onClick={()=> this.props.onEditFighterz(this.state.personnage)} type="button" className="btn btn-outline-secondary">Editer FighterZ {this.state.personnage.nom}</button>
-              </form>
-              : 
-              <div className="spinner-border m-5" role="status"><span className="sr-only">Loading...</span></div>
-              }
+              </form>}
             </div>
           </div>
         </div>);

@@ -1,17 +1,26 @@
 import React from 'react';
 import '../assets/img/brand/favicon.png';
 import '../assets/css/google-fonts.css';
-import '../assets/js/plugins/bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import '../assets/js/plugins/nucleo/css/nucleo.css';
 import '../assets/js/plugins/fortawesome/fontawesome-free/css/all.min.css';
 import '../assets/css/argon-dashboard.css?v=1.1.1';
 import dbfzLogo from '../assets/img/brand/dragon-ball-fighter-z-nintendo-switch.jpg';
 import { connect } from 'react-redux';
+import Modals from '../components/Modals.js'
+import * as actions from '../store/actions/fighterz.js';
 
 
 const TemplateWraper = props => {
+
+    const close = () => {
+        props.setModalConfig({...props.modalConfig, isOpen: false});
+    }
+
     return (
         <div>
+
+<Modals modalConfig={props.modalConfig} closeModal={close}></Modals>
             {props.loading && <div className="lds-dual-ring"></div>}
             <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
                 <div className="container-fluid">
@@ -125,8 +134,15 @@ const TemplateWraper = props => {
 
         const mapStatetoProps = state => {
             return {
-                loading: state.fighterz.isLoading
+                loading: state.fighterz.isLoading,
+                modalConfig: state.fighterz.modalConfig
             };
           }
+
+          const mapDispatchToProps = (dispatch) => {
+              return {
+                  setModalConfig: (config) => dispatch(actions.setModalConfig(config))
+                }
+          }
         
-export default connect(mapStatetoProps)(TemplateWraper)
+export default connect(mapStatetoProps, mapDispatchToProps)(TemplateWraper)

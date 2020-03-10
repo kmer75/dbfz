@@ -2,6 +2,15 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import {fighterzRef} from '../../components/Firebase/firebase.js';
 
+const setModalConfigHelper = (isOpen, title = '', text = '') => {
+    const config = {isOpen, title, text };
+    return config;
+}
+
+export const setModalConfig = (config) => {
+    return {type: actionTypes.SET_MODAL_CONFIG, config}
+}
+
 const setLoading = (isLoading) => {
     return {type: actionTypes.SET_LOADING, isLoading};
 }
@@ -15,7 +24,7 @@ const getPersonnage = (personnage) => {
 }
 
 export const addFighterz = (fighterzPersonnage) => 
-    (dispatch) => {
+    (dispatch, getState) => {
         dispatch(setLoading(true))
         return fighterzRef().push(fighterzPersonnage)//.set()
         .then(snapshot => {
@@ -29,11 +38,12 @@ export const addFighterz = (fighterzPersonnage) =>
 
 
 export const editFighterz = (fighterzPersonnage) => 
-     dispatch => {
+     (dispatch, getState) => {
         dispatch(setLoading(true))
         return fighterzRef(fighterzPersonnage.id).set(fighterzPersonnage)
         .then(response => {
-            console.log("edit response; ", response);
+            const config = setModalConfigHelper(true, "Enregistrement du Fighterz", "L'enregistrement s'est effectué avec succès");
+            dispatch(setModalConfig(config));
             dispatch({type: actionTypes.EDIT_FIGHTERZ, personnage: fighterzPersonnage});
             return response;
         }).catch(err => {console.log("err", err)})

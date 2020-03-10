@@ -23,7 +23,7 @@ class PersonnageAdd extends Component {
 
     render() {
         return (
-            <div className="col-xl-8 order-xl-1 mt-7">
+            <div className="col-xl-12 order-xl-1 mt-7">
           <div className="card">
             <div className="card-header">
               <div className="row align-items-center">
