@@ -15,8 +15,8 @@ class PersonnageAdd extends Component {
     onChangeFieldHandler = (event) => {
         const {value, name} = event.target;
         this.setState((prevState, props) => {
-            prevState.personnage[name] = value;
-            const updatedObject = prevState.personnage;
+          const updatedObject = {...prevState.personnage};
+          updatedObject[name] = value;
             return {personnage: updatedObject};
     });
     }
@@ -34,7 +34,8 @@ class PersonnageAdd extends Component {
                   <a href="#!" className="btn btn-sm btn-primary">Fight</a>
                 </div>
               </div>
-              <Link to="/"><button type="button" className="btn btn-outline-secondary" ><i className="ni ni-bullet-list-67 text-dark"></i> Retour à la liste des fighterZ</button></Link>
+              <hr/>
+              <Link to="/"><button type="button" className="btn btn-outline-secondary float-left" ><i className="ni ni-bullet-list-67 text-dark"></i>  Retour à la liste des fighterZ</button></Link>
             </div>
             <div className="card-body">
               <form>
@@ -83,6 +84,56 @@ class PersonnageAdd extends Component {
                 </div>
                 <hr className="my-4"/>
                     <img src={this.state.personnage.imageUrl1} className="avatar avatar-giga"/>
+                    <hr className="my-4"/>
+
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <div className="form-group">
+                          <label className="form-control-label" htmlFor="niveau">Image secondaire</label>
+                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl2" id="imageUrl2" className="form-control" placeholder="Niveau"  value={this.state.personnage.imageUrl2}  />
+                        </div>
+                      </div>
+                      <div className="col-lg-6">
+                        <div className="form-group">
+                        <div className="avatar avatar-big" >
+                                <img alt="" src={this.state.personnage.imageUrl2} className="rounded-circle"/>
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <div className="form-group">
+                          <label className="form-control-label" htmlFor="niveau">Troisième image</label>
+                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl2" id="imageUrl3" className="form-control" placeholder="Niveau"  value={this.state.personnage.imageUrl3}  />
+                        </div>
+                      </div>
+                      <div className="col-lg-6">
+                        <div className="form-group">
+                        <div className="avatar avatar-big" >
+                                <img alt="" src={this.state.personnage.imageUrl3} className="rounded-circle"/>
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <div className="form-group">
+                          <label className="form-control-label" htmlFor="niveau">Quatrième image</label>
+                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl4" id="imageUrl4" className="form-control" placeholder="Niveau"  value={this.state.personnage.imageUrl4}  />
+                        </div>
+                      </div>
+                      <div className="col-lg-6">
+                        <div className="form-group">
+                        <div className="avatar avatar-big" >
+                                <img alt="" src={this.state.personnage.imageUrl4} className="rounded-circle"/>
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+                    
                 <hr className="my-4"/>
 
                           <button onClick={()=> this.props.onAddFighterz(this.state.personnage)} type="button" className="btn btn-outline-secondary">Créer FighterZ</button>

@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom';
 class PersonnageList extends Component {
 
   componentDidMount() {
-    this.props.onFighterzInit()
+    if(this.props.fighterz.length === 0) 
+      this.props.onFighterzInit();
   }
     render() {
       const p = {id: 1,nom:'gohan', niveau: 'ssj2', race:'saiyen', puissance:'90', imageUrl1: ''}
@@ -19,7 +20,8 @@ class PersonnageList extends Component {
               <div className="card-header border-0">
               <h3 className="mb-0">Liste des Fighters Z</h3>
             </div>
-            <Link to="/add"><button type="button" className="btn btn-outline-success" ><i className="ni ni-fat-add"></i>Ajouter un fighterZ</button></Link>
+            <Link to="/add"><button type="button" className="btn btn-outline-secondary btn-block" ><i className="ni ni-fat-add"></i>Ajouter un fighterZ</button></Link>
+            <br/>
             <div className="table-responsive">
               <table className="table align-items-center table-flush">
                 <thead className="thead-light">

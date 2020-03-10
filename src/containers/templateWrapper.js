@@ -1,16 +1,18 @@
 import React from 'react';
 import '../assets/img/brand/favicon.png';
 import '../assets/css/google-fonts.css';
+import '../assets/js/plugins/bootstrap/dist/css/bootstrap.min.css';
 import '../assets/js/plugins/nucleo/css/nucleo.css';
 import '../assets/js/plugins/fortawesome/fontawesome-free/css/all.min.css';
 import '../assets/css/argon-dashboard.css?v=1.1.1';
 import dbfzLogo from '../assets/img/brand/dragon-ball-fighter-z-nintendo-switch.jpg';
+import { connect } from 'react-redux';
 
 
 const TemplateWraper = props => {
     return (
         <div>
-
+            {props.loading && <div className="lds-dual-ring"></div>}
             <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
                 <div className="container-fluid">
                     {/* Toggler */}
@@ -119,5 +121,12 @@ const TemplateWraper = props => {
     </div>
             )
         }
+
+
+        const mapStatetoProps = state => {
+            return {
+                loading: state.fighterz.isLoading
+            };
+          }
         
-export default TemplateWraper
+export default connect(mapStatetoProps)(TemplateWraper)

@@ -10,7 +10,6 @@ class PersonnageEdit extends Component {
     }
 
     componentDidMount() {
-      debugger;
       if(this.props.fighterz && this.props.fighterz.length > 0 && this.props.match.params) {
         const personnage = this.props.fighterz.find(x => x.id == this.props.match.params.id) //si null ba c'est null.
         this.setState({personnage});
@@ -18,9 +17,9 @@ class PersonnageEdit extends Component {
       }
       if (this.props.match.params) {
           this.props.onGetPersonnage(this.props.match.params.id)
-          // .then((response)=>{
-          //   console.log(response)
-          // }).catch((err)=> console.log(err));
+          .then((response)=>{
+            this.setState({personnage: this.props.editedPersonnage});
+          }).catch((err)=> console.log(err));
         }
       }
     
@@ -28,15 +27,15 @@ class PersonnageEdit extends Component {
     onChangeFieldHandler = (event) => {
         const {value, name} = event.target;
         this.setState((prevState, props) => {
-            prevState.personnage[name] = value;
-            const updatedObject = prevState.personnage;
+          const updatedObject = {...prevState.personnage};
+          updatedObject[name] = value;
             return {personnage: updatedObject};
     });
     }
 
     render() {
         return (
-            <div className="col-xl-8 order-xl-1 mt-7">
+          <div className="col-xl-8 order-xl-1 mt-7">
           <div className="card">
             <div className="card-header">
               <div className="row align-items-center">
@@ -47,7 +46,8 @@ class PersonnageEdit extends Component {
                   <a href="#!" className="btn btn-sm btn-primary">Fight</a>
                 </div>
               </div>
-              <Link to="/"><button type="button" className="btn btn-outline-secondary" ><i className="ni ni-bullet-list-67 text-dark"></i>  Retour à la liste des fighterZ</button></Link>
+              <hr/>
+              <Link to="/"><button type="button" className="btn btn-outline-secondary float-left" ><i className="ni ni-bullet-list-67 text-dark"></i>  Retour à la liste des fighterZ</button></Link>
             </div>
             <div className="card-body">
               {this.state.personnage ?
@@ -58,13 +58,18 @@ class PersonnageEdit extends Component {
                     <div className="col-lg-6">
                       <div className="form-group">
                         <label className="form-control-label" htmlFor="nom">Nom</label>
-                        <input  onChange={this.onChangeFieldHandler} onChange={this.onChangeFieldHandler} name="nom" type="text" id="nom" className="form-control" placeholder="Nom" value={this.state.personnage.nom}/>
+                        <input  onChange={this.onChangeFieldHandler} name="nom" type="text" id="nom" className="form-control" placeholder="Nom" value={this.state.personnage.nom}/>
                       </div>
                     </div>
                     <div className="col-lg-6">
                       <div className="form-group">
                         <label className="form-control-label" htmlFor="race">Race</label>
-                        <input  onChange={this.onChangeFieldHandler} onChange={this.onChangeFieldHandler}  type="text" name="race" id="race" className="form-control" placeholder="Race"  value={this.state.personnage.race}/>
+                        {/* <input  onChange={this.onChangeFieldHandler}  type="text" name="race" id="race" className="form-control" placeholder="Race"  value={this.state.personnage.race}/> */}
+                        <select onChange={this.onChangeFieldHandler} name="race" id="race" className="form-control" placeholder="choisir sa race" value={this.state.personnage.race}>
+        <option>Saiyen</option>
+        <option>Terrien</option>
+        <option>Namek</option>
+    </select>
                       </div>
                     </div>
                   </div>
@@ -96,12 +101,63 @@ class PersonnageEdit extends Component {
                   </div>
                 </div>
                 <hr className="my-4"/>
-                    <img src={this.state.personnage.imageUrl1} className="avatar avatar-giga" onerror="javascript:this.src='images/default.jpg'"/>
+                    <img src={this.state.personnage.imageUrl1} className="avatar avatar-giga"/>
                 <hr className="my-4"/>
 
-                          <button onClick={()=> this.props.onEditFighterz(this.state.personnage)} type="button" className="btn btn-outline-secondary">Créer FighterZ</button>
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <div className="form-group">
+                          <label className="form-control-label" htmlFor="niveau">Image secondaire</label>
+                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl2" id="imageUrl2" className="form-control" placeholder="Niveau"  value={this.state.personnage.imageUrl2}  />
+                        </div>
+                      </div>
+                      <div className="col-lg-6">
+                        <div className="form-group">
+                        <div className="avatar avatar-big" >
+                                <img alt="" src={this.state.personnage.imageUrl2} className="rounded-circle"/>
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <div className="form-group">
+                          <label className="form-control-label" htmlFor="niveau">Troisième image</label>
+                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl2" id="imageUrl3" className="form-control" placeholder="Niveau"  value={this.state.personnage.imageUrl3}  />
+                        </div>
+                      </div>
+                      <div className="col-lg-6">
+                        <div className="form-group">
+                        <div className="avatar avatar-big" >
+                                <img alt="" src={this.state.personnage.imageUrl3} className="rounded-circle"/>
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <div className="form-group">
+                          <label className="form-control-label" htmlFor="niveau">Quatrième image</label>
+                          <input onChange={this.onChangeFieldHandler} type="text" name="imageUrl4" id="imageUrl4" className="form-control" placeholder="Niveau"  value={this.state.personnage.imageUrl4}  />
+                        </div>
+                      </div>
+                      <div className="col-lg-6">
+                        <div className="form-group">
+                        <div className="avatar avatar-big" >
+                                <img alt="" src={this.state.personnage.imageUrl4} className="rounded-circle"/>
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+                <hr className="my-4"/>
+
+                          <button onClick={()=> this.props.onEditFighterz(this.state.personnage)} type="button" className="btn btn-outline-secondary">Editer FighterZ {this.state.personnage.nom}</button>
               </form>
-              : null}
+              : 
+              <div className="spinner-border m-5" role="status"><span className="sr-only">Loading...</span></div>
+              }
             </div>
           </div>
         </div>);
