@@ -73,7 +73,7 @@ const TemplateWraper = props => {
                             {/* Navigation */}
                             <ul className="navbar-nav mb-md-3">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="ok">
+                                    <a className="nav-link" href="#" onClick={()=> props.history.push('/')}>
                                         <i className="ni ni-palette text-blue"></i> A propos
                                     </a>
                                 </li>
